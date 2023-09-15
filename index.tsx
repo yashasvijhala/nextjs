@@ -134,13 +134,7 @@ function Home() {
 
   const handleUpdate = () => {
     const airlineId = parseInt(updateAirlineId);
-    const airportIdsArray = updateAirportIds.split(',').map((id) => id.trim());
-  
-    console.log('Updating airline with ID:', airlineId);
-    console.log('Sending data:', {
-      name: updateAirlineName,
-      airportIds: airportIdsArray,
-    });
+    const airportIdsArray = updateAirportIds.split(',').map((id) => id.trim()).join(',');
   
     fetch(`/api/airlines/${airlineId}`, {
       method: 'PATCH',
@@ -153,22 +147,12 @@ function Home() {
       }),
     })
       .then((response) => {
-        console.log('Response status:', response.status);
-  
         if (response.status === 200) {
           return response.json();
-        } else {
-          throw new Error(`Error updating airline: ${response.statusText}`);
         }
       })
-      .then((data) => {
-        console.log('Updated data:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        setError(error); 
-      });
   };
+  
   
 
   return (
@@ -295,3 +279,4 @@ function Home() {
 }
 
 export default Home;
+
